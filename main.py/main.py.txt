@@ -1,0 +1,51 @@
+>>> import tkinter as tk
+>>> from tkinter import messagebox
+>>> from PIL import Image, ImageTk
+>>> import os
+>>>
+>>> # Create the main window
+>>> root = tk.Tk()
+>>> root.title("Mood Selector")
+''
+>>> root.geometry("500x500")
+''
+>>> root.config(bg="#f0f0f0")
+>>>
+>>> # Display label
+>>> label = tk.Label(root, text="How is your day going?", font=("Arial", 18), bg="#f0f0f0")
+>>> label.pack(pady=20)
+>>>
+>>> # Image display area
+>>> image_label = tk.Label(root)
+>>> image_label.pack(pady=10)
+>>>
+>>> # Function to display mood image
+>>> def show_image(mood_folder):
+...         folder_path = os.path.join(os.getcwd(), mood_folder)
+...             try:
+...                             images = [f for f in os.listdir(folder_path) if f.endswith(('.png', '.jpg', '.jpeg'))]
+...                                     if not images:
+...                                                         messagebox.showerror("No Image", f"No image found in {mood_\folder}")
+...                                                                     return
+...                                                                             image_path = os.path.join(folder_path, \images[0])
+...                                                                                     img = Image.open(image_path)
+...                                                                                             img = img.resize((300, \300))  # Resize image
+...                                                                                                     photo = ImageTk\.PhotoImage(img)
+...                                                                                                             image_l\abel.config(image=photo)
+...                                                                                                                    \ image_label.image = photo
+...                                                                                                                    \     except Exception as e:
+...                                                                                                                    \                     messagebox.showerror("Error", str(e))
+...                                                                                                                    \
+  File "<python-input-20>", line 3
+    try:
+IndentationError: unexpected indent
+>>> # Buttons
+>>> btn_not_great = tk.Button(root, text="Not so great", width=20, command=lambda: show_image("not_so_great"))
+>>> btn_so_so = tk.Button(root, text="So-so", width=20, command=lambda: show_image("so_so"))
+>>> btn_great = tk.Button(root, text="Great", width=20, command=lambda: show_image("great"))
+>>>
+>>> btn_not_great.pack(pady=5)
+>>> btn_so_so.pack(pady=5)
+>>> btn_great.pack(pady=5)
+>>>
+>>> # Run the app
